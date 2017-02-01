@@ -6,8 +6,10 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.bluelinelabs.conductor.RouterTransaction;
 import com.bluelinelabs.conductor.demo.R;
 import com.bluelinelabs.conductor.demo.controllers.base.BaseController;
 import com.bluelinelabs.conductor.demo.util.BundleBuilder;
@@ -20,7 +22,11 @@ public class ChildController extends BaseController {
     private static final String KEY_BG_COLOR = "ChildController.bgColor";
     private static final String KEY_COLOR_IS_RES = "ChildController.colorIsResId";
 
-    @BindView(R.id.tv_title) TextView tvTitle;
+    @BindView(R.id.btn_next)
+    Button btnNext;
+
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
 
     public ChildController(String title, int backgroundColor, boolean colorIsResId) {
         this(new BundleBuilder(new Bundle())
@@ -43,6 +49,13 @@ public class ChildController extends BaseController {
     @Override
     protected void onViewBound(@NonNull View view) {
         super.onViewBound(view);
+
+        btnNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getRouter().pushController(RouterTransaction.with(new TextController(String.format("Next from %s", getArgs().getString(KEY_TITLE)))));
+            }
+        });
 
         tvTitle.setText(getArgs().getString(KEY_TITLE));
 
