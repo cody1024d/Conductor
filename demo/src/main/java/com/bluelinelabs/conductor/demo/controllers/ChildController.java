@@ -10,7 +10,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.bluelinelabs.conductor.RouterTransaction;
+import com.bluelinelabs.conductor.changehandler.FadeChangeHandler;
 import com.bluelinelabs.conductor.demo.R;
+import com.bluelinelabs.conductor.demo.changehandler.FadeInChangeHandler;
+import com.bluelinelabs.conductor.demo.changehandler.FadeOutChangeHandler;
 import com.bluelinelabs.conductor.demo.controllers.base.BaseController;
 import com.bluelinelabs.conductor.demo.util.BundleBuilder;
 
@@ -22,8 +25,11 @@ public class ChildController extends BaseController {
     private static final String KEY_BG_COLOR = "ChildController.bgColor";
     private static final String KEY_COLOR_IS_RES = "ChildController.colorIsResId";
 
-    @BindView(R.id.btn_next)
-    Button btnNext;
+    @BindView(R.id.btn_dialog_next)
+    Button btnDlgNext;
+
+    @BindView(R.id.btn_clear_next)
+    Button btnClearNext;
 
     @BindView(R.id.tv_title)
     TextView tvTitle;
@@ -50,10 +56,21 @@ public class ChildController extends BaseController {
     protected void onViewBound(@NonNull View view) {
         super.onViewBound(view);
 
-        btnNext.setOnClickListener(new View.OnClickListener() {
+        btnDlgNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getRouter().pushController(RouterTransaction.with(new TextController(String.format("Next from %s", getArgs().getString(KEY_TITLE)))));
+                RouterTransaction transaction = RouterTransaction.with(new TextController(String.format("DIALOG Next from %s", getArgs().getString(KEY_TITLE)), true))
+                        .pushChangeHandler(new FadeInChangeHandler(false))
+                        .popChangeHandler(new FadeOutChangeHandler());
+                getRouter().pushController(transaction);
+            }
+        });
+
+        btnClearNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RouterTransaction transaction = RouterTransaction.with(new TextController(String.format("CLEAR BKGRND Next from %s", getArgs().getString(KEY_TITLE))));
+                getRouter().pushController(transaction);
             }
         });
 

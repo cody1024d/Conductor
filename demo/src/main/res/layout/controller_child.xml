@@ -5,11 +5,18 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_dialog_next"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Next!" />
+        android:text="Dialog Next!" />
+
+    <Button
+        android:id="@+id/btn_clear_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Clear Next!" />
 
     <TextView
         android:id="@+id/tv_title"
