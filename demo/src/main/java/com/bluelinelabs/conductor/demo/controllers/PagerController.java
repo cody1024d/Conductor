@@ -22,8 +22,10 @@ public class PagerController extends BaseController {
 
     private int[] PAGE_COLORS = new int[]{R.color.green_300, R.color.cyan_300, R.color.deep_purple_300, R.color.lime_300, R.color.red_300};
 
-    @BindView(R.id.tab_layout) TabLayout tabLayout;
-    @BindView(R.id.view_pager) ViewPager viewPager;
+    @BindView(R.id.tab_layout)
+    TabLayout tabLayout;
+    @BindView(R.id.view_pager)
+    ViewPager viewPager;
 
     private final RouterPagerAdapter pagerAdapter;
 
@@ -33,7 +35,7 @@ public class PagerController extends BaseController {
             public void configureRouter(@NonNull Router router, int position) {
                 if (!router.hasRootController()) {
                     Controller page = new ChildController(String.format(Locale.getDefault(), "Child #%d (Swipe to see more)", position), PAGE_COLORS[position], true);
-                    router.setRoot(RouterTransaction.with(page));
+                    router.pushController(RouterTransaction.with(page));
                 }
             }
 
