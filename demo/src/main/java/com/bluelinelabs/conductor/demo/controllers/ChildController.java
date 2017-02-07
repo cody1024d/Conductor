@@ -60,7 +60,7 @@ public class ChildController extends BaseController {
             @Override
             public void onClick(View v) {
                 RouterTransaction transaction = RouterTransaction.with(new TextController(String.format("DIALOG Next from %s", getArgs().getString(KEY_TITLE)), true))
-                        .pushChangeHandler(new FadeInChangeHandler(false))
+                        .pushChangeHandler(new FadeInChangeHandler())
                         .popChangeHandler(new FadeOutChangeHandler());
                 getRouter().pushController(transaction);
             }
